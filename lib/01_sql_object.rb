@@ -35,7 +35,7 @@ class SQLObject
   end
 
   def self.table_name
-    scname = self.tablize
+    scname = self.name.downcase.pluralize
     @table_name ||= scname
   end
 
@@ -98,16 +98,17 @@ class SQLObject
   end
 
   def insert
-    col_names =  self.class.columns.join(",")
-    question_marks = "(" + "? " * col_names.length + ")"
-
-
-    DBConnection.execute(<<-SQL, question_marks)
-      INSERT INTO
-        "#{col_names}"
-      VALUES
-        question_marks
-    SQL
+    # BROKEN
+    # col_names =  self.class.columns.join(",")
+    # question_marks = "(" + "? " * col_names.length + ")"
+    #
+    #
+    # DBConnection.execute(<<-SQL, question_marks)
+    #   INSERT INTO
+    #     "#{col_names}"
+    #   VALUES
+    #     question_marks
+    # SQL
   end
 
   def update
